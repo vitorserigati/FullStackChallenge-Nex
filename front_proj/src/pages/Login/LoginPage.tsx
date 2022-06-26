@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Logo } from "../../components";
 import "../../styles/loginpage.css";
 
 export const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div className="main">
       <div>
@@ -10,29 +13,38 @@ export const LoginPage = () => {
             <Logo />
           </div>
           <div className="input-wraper">
-            <div>
-              <label className="input-label">E-Mail</label>
-            </div>
             <input
-              className="input-imput"
+              className={email !== "" ? "has-val input-input" : "input-input"}
               type="email"
-              placeholder="email@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
+            <span className="focus-input" data-placeholder="Email" />
           </div>
+
           <div className="input-wraper">
-            <div>
-              <label className="input-label">Password</label>
-            </div>
             <input
-              className="input-imput"
+              className={
+                password !== "" ? "has-val input-input" : "input-input"
+              }
               type="password"
-              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            <span className="focus-input" data-placeholder="Password" />
           </div>
-          <button className="button-class" type="submit">
-            Login
-          </button>
+          <div className="button-wraper">
+            <button className="button-class" type="submit">
+              Login
+            </button>
+          </div>
         </form>
+        <div className="register">
+          <p>Still don't have an accont?</p>
+          <a href="#">
+            <strong>Register here </strong>
+          </a>
+        </div>
       </div>
     </div>
   );
