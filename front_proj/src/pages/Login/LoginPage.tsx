@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Logo } from "../../components";
 import "../../styles/loginpage.css";
 
@@ -41,9 +42,9 @@ export const LoginPage = () => {
         </form>
         <div className="register">
           <p>Still don't have an accont?</p>
-          <a href="#">
+          <Link to={`/register`}>
             <strong>Register here </strong>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

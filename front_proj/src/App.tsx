@@ -1,9 +1,10 @@
-import { LoginPage } from "./pages";
+import { BrowserRouter } from "react-router-dom";
+import { Router } from "./routes/index";
 
-export const App = () => {
+export function App() {
   return (
-    <div>
-      <LoginPage />
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
-};
+}
