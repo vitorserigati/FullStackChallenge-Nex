@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.logo-div{
+    height: 8rem;
+    border-bottom: solid 1px #111;
+    margin-bottom: 0.25rem;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
