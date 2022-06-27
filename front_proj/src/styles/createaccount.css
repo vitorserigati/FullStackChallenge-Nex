@@ -7,7 +7,14 @@
     text-decoration: none;
     color: #111;
 }
-
+.register-text{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    color:#ddae4d;
+}
 .main-class{
     display:flex;
     flex-direction: column;
@@ -97,10 +104,10 @@
     -moz-transition: all 0.4s;
     
 
-    background: linear-gradient(to left, #c7aa5b, #c4c271);
-    background: -webkit-linear-gradient(to left, #c7aa5b, #c4c271);
-    background: -moz-linear-gradient(to left, #c7aa5b, #c4c271);
-    background: -o-linear-gradient(to left, #c7aa5b, #c4c271);
+    background: linear-gradient(to left, #ddae4d, #c4c271);
+    background: -webkit-linear-gradient(to left, #ddae4d, #c4c271);
+    background: -moz-linear-gradient(to left, #ddae4d, #c4c271);
+    background: -o-linear-gradient(to left, #ddae4d, #c4c271);
 }
 
 .focus-input::after{
@@ -149,7 +156,7 @@
     position: relative;
     width: 50%;
     height: 100%;
-    justify-content: right;
+    justify-content: space-between;
 }
 .form-submit-btn{
     font-size: 0.9rem;
@@ -167,18 +174,29 @@
     text-overflow:ellipsis;
     min-width: 100px;
     transition-duration: 0.4s;
+    font-weight: bold;
 
-    background: linear-gradient(to left, #c7aa5b, #b8c471);
-    background: -webkit-linear-gradient(to left, #c7aa5b, #b8c471);
-    background: -moz-linear-gradient(to left, #c7aa5b, #b8c471);
-    background: -o-linear-gradient(to left, #c7aa5b, #b8c471);
+    background:  #ddae4d;
+    background: -webkit-linear-gradient(to left, #ddae4d, #e9d099);
+    background: -moz-linear-gradient(to left, #ddae4d, #e9d099);
+    background: -o-linear-gradient(to left, #ddae4d, #e9d099);
 }
 
 .form-submit-btn:hover{
     cursor: pointer;
     transition-duration: 0.4s;
-    background: linear-gradient(to left, #b8c471, #c7aa5b);
-    background: -webkit-linear-gradient(to left, #b8c471, #c7aa5b);
-    background: -moz-linear-gradient(to left, #b8c471, #c7aa5b);
-    background: -o-linear-gradient(to left, #b8c471, #c7aa5b);
+  
+}
+
+.back-btn{
+    width: 20%;
+    min-width: 100px;
+    text-align: center;
+    padding: 0.5rem 2rem;
+    background-color: #6e6e6e;
+    border-radius: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #dddbdb;
+    font-weight: bold;
 }

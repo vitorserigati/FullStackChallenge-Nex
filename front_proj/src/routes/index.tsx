@@ -6,6 +6,7 @@ export function Router() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<CreateAccount />} />
+      <Route path="/home" />
 
       <Route path="*" element={<LoginPage />} />
     </Routes>

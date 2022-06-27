@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/createaccount.css";
 
 export const CreateAccount = () => {
@@ -6,13 +7,12 @@ export const CreateAccount = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [email, setEmail] = useState("");
+
   return (
     <main className="main-class">
       <section className="section-class">
         <form className="form-class">
-          <div className="warning">
-            <h1>Register</h1>
-          </div>
+          <div className="register-text">Register</div>
           <div className="wraper">
             <input
               type="text"
@@ -50,12 +50,18 @@ export const CreateAccount = () => {
             <span className="focus-input" data-placeholder="Confirm Password" />
           </div>
           <span className="warning">
-            Please, make sure all information is correct
+            Please, make sure all fields are filled in and the information is
+            correct
           </span>
           <div className="btn-wrapper">
-            <button type="submit" className="form-submit-btn">
-              Confirm
-            </button>
+            <Link to={"/login"} className="back-btn">
+              Return
+            </Link>
+            {password === confirmPass && password && confirmPass !== "" && (
+              <button type="submit" className="form-submit-btn">
+                Confirm
+              </button>
+            )}
           </div>
         </form>
       </section>
