@@ -1,19 +1,8 @@
 import { Sequelize } from "sequelize";
-import * as config from "./config/config";
+import { development } from "./config/config";
 import * as User from "./models/UsersModel";
 
-function isNodeEnvValid(env?: string): env is keyof typeof config {
-  return !!env && env in config;
-}
-
-const env = process.env.NODE_ENV;
-
-if (!isNodeEnvValid(env)) {
-  throw new Error("");
-}
-
-const seqConfig = config[env];
-export const db = new Sequelize(seqConfig);
+export const db = new Sequelize(development);
 
 function buildModel(seq: Sequelize) {
   return {
