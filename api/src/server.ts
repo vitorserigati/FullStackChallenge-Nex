@@ -10,4 +10,5 @@ app.use(router);
 
 app.listen(3333, async () => {
   await db.sync();
+  console.log("server running on port 3333");
 });

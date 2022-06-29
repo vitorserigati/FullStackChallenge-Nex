@@ -33,6 +33,31 @@ class ItemController {
     });
     return res.status(201).json(item);
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { name, description, value } = req.body;
+    try {
+      await ItemModel.update(
+        { name: name, description: description, value },
+        { where: { id } }
+      );
+
+      return res.status(204).send();
+    } catch (error) {
+      return res.status(400).json({ message: "an error has occured" });
+    }
+  }
+
+  async destroy(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      await ItemModel.destroy({ where: { id } });
+      return res.status(204).json({ message: "Item deleted" });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  }
 }
 
 export default new ItemController();

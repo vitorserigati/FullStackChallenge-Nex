@@ -1,6 +1,7 @@
 import express from "express";
 import ItemController from "./controllers/itemsControllers/ItemsController";
 import UsersController from "./controllers/usersControllers/UsersController";
+import { auth } from "./middleware/auth";
 
 const router = express.Router();
 
@@ -10,22 +11,25 @@ router.post("/users", UsersController.create);
 //return specified user from db
 router.post("/users/session", UsersController.login);
 
-//return all Users fron DB
-router.get("/users", UsersController.findall);
+//middleware for token verification
+router.use(auth);
+
+//delete own user account
+router.delete("/users/session/:id");
 
 //create new item on db
-router.post("/items", ItemController.create);
+router.post("/users/session/items", ItemController.create);
 
 //return all items from db
-router.get("/items", ItemController.findAll);
+router.get("/users/session/items", ItemController.findAll);
 
 //return specified item from db
-router.get("/items/:id", ItemController.findOne);
+router.get("/users/session/items/:id", ItemController.findOne);
 
 //modifies specified item on
-router.put("/items/:uuid", async () => {});
+router.put("/users/session/items/:id", ItemController.update);
 
 //deletes specified item on
-router.delete("/items/:uuid", async () => {});
+router.delete("/users/session/items/:id", ItemController.destroy);
 
 export { router };
