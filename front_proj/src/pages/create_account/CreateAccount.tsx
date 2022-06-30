@@ -1,17 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { SyntheticEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useApi } from "../../hooks/useApi";
 import "../../styles/createaccount.css";
 
 export const CreateAccount = () => {
+  const auth = useApi();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [email, setEmail] = useState("");
 
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (name && email && password) {
+      await auth.createUser(name, email, password);
+      navigate("/login");
+    }
+  };
+
   return (
     <main className="main-class">
       <section className="section-class">
-        <form className="form-class">
+        <form className="form-class" onSubmit={handleSubmit}>
           <div className="register-text">Register</div>
           <div className="wraper">
             <input
@@ -57,11 +68,15 @@ export const CreateAccount = () => {
             <Link to={"/login"} className="back-btn">
               Return
             </Link>
-            {password === confirmPass && password && confirmPass !== "" && (
-              <button type="submit" className="form-submit-btn">
-                Confirm
-              </button>
-            )}
+            {password === confirmPass &&
+              password &&
+              confirmPass &&
+              name &&
+              email !== "" && (
+                <button type="submit" className="form-submit-btn">
+                  Confirm
+                </button>
+              )}
           </div>
         </form>
       </section>

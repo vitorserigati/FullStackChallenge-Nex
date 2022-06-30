@@ -1,15 +1,33 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/Auth/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { SyntheticEvent, useContext, useState } from "react";
 import { Logo } from "../../components";
 import "../../styles/loginpage.css";
 
 export const LoginPage = () => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (email && password) {
+      const isLogged = await auth.signin(email, password);
+      if (isLogged) {
+        navigate("/home");
+      } else {
+        alert("Did not Connected");
+      }
+    } else {
+      return alert("something go whrong");
+    }
+  };
+
+  console.log(auth.signed);
   return (
     <div className="main">
       <div>
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="logo-div">
             <Logo />
           </div>

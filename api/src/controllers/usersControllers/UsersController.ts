@@ -23,9 +23,11 @@ class UsersController {
       );
 
       const data = {
-        id: user.getDataValue("id"),
-        name: user.getDataValue("name"),
-        email: user.getDataValue("email"),
+        user: {
+          id: user.getDataValue("id"),
+          name: user.getDataValue("name"),
+          email: user.getDataValue("email"),
+        },
 
         token,
       };

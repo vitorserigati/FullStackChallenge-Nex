@@ -1,0 +1,83 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #111;
+}
+
+
+.body{
+    background-color: #dddbdb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.header-class{
+    height: 4rem;
+    width: 100%;
+    padding-bottom: 3px;
+    border-bottom: 2px #1111 solid;
+}
+.nav-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 3rem;
+    
+    
+    
+}
+.name{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 10;
+}
+.name h1{
+    color:#c7aa5b;
+    font-size: 30px;
+}
+.name strong{
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-left: 0.8rem;
+}
+.logout-link{
+    padding: 1rem;
+    background-color: #c7aa5b;
+    border-radius: 10px;
+    border: none;
+    
+}
+.logout-link:hover{
+    cursor: pointer;
+}
+.sideBar{
+    background-color: #c7aa5b;
+    width: 15rem;
+    height: 100%;
+    border-right: 1px #111 solid;
+}
+.main{
+    background-color: aqua;
+    height: 100%;
+    flex-grow: 10;
+    margin-bottom: 1rem;
+}
+.main-view{
+    display: flex;
+    flex-grow: 10;
+    height: 100%;
+    width:100%;
+    justify-content: space-between;
+}
