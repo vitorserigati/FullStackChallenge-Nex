@@ -23,7 +23,6 @@ export const LoginPage = () => {
     }
   };
 
-  console.log(auth.signed);
   return (
     <div className="main">
       <div>

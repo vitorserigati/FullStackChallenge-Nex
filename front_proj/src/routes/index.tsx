@@ -5,7 +5,6 @@ import { LoginPage, CreateAccount, HomePage } from "../pages";
 
 export function Router() {
   const auth = useContext(AuthContext);
-  console.log(auth.signed);
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />

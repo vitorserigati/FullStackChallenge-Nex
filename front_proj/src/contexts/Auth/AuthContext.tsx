@@ -1,19 +1,8 @@
 import { createContext } from "react";
 import { useEffect, useState } from "react";
 import { useApi } from "../../hooks/useApi";
-
-export type User = {
-  id: string | null;
-  name: string;
-  email: string;
-};
-
-interface IAuthContextType {
-  signed: boolean;
-  user: User | null;
-  signin: (email: string, password: string) => Promise<Boolean>;
-  signout: () => void;
-}
+import { IAuthContextType } from "../../interfaces";
+import { User } from "../../types";
 
 export const AuthContext = createContext<IAuthContextType>(null!);
 
@@ -40,15 +29,17 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     if (data.user && data.token) {
       setUser(data.user);
       setLocalStorage(data.user, data.token);
-
+      api.changeHeaders(`Bearer ${data.token}`);
       return true;
     }
     return false;
   };
   const signout = async () => {
     setUser(null);
-    localStorage.clear;
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
   };
+
   const setLocalStorage = (user: object, token: string) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("authToken", token);
