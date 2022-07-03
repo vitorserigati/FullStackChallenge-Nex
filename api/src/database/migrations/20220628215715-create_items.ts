@@ -10,6 +10,7 @@ export async function up(q: QueryInterface) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,
@@ -18,7 +19,6 @@ export async function up(q: QueryInterface) {
     value: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      unique: true,
     },
     created_at: {
       type: DataTypes.DATE,

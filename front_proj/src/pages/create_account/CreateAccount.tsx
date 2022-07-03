@@ -27,6 +27,7 @@ export const CreateAccount = () => {
           <div className="wraper">
             <input
               type="text"
+              required={true}
               className={name !== "" ? "inputs has-val" : "inputs"}
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -36,6 +37,7 @@ export const CreateAccount = () => {
           <div className="wraper">
             <input
               type="email"
+              required={true}
               className={email !== "" ? "inputs has-val" : "inputs"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -45,6 +47,7 @@ export const CreateAccount = () => {
           <div className="wraper">
             <input
               type="password"
+              required={true}
               className={password !== "" ? "inputs has-val" : "inputs"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -54,6 +57,7 @@ export const CreateAccount = () => {
           <div className="wraper">
             <input
               type="password"
+              required={true}
               className={confirmPass !== "" ? "inputs has-val" : "inputs"}
               value={confirmPass}
               onChange={(e) => setConfirmPass(e.target.value)}

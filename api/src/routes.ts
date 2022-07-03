@@ -8,7 +8,7 @@ const router = express.Router();
 //Create User on DB
 router.post("/users", UsersController.create);
 
-//return specified user from db
+//Login
 router.post("/users/session", UsersController.login);
 
 //middleware for token verification

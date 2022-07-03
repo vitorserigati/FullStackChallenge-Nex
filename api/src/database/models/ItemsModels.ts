@@ -13,6 +13,7 @@ export const ItemModel = db.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,
@@ -21,7 +22,6 @@ export const ItemModel = db.define(
     value: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      unique: true,
     },
   },
   {

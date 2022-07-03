@@ -1,13 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import {
+  FormEvent,
+  SyntheticEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import "../../styles/HomePage.css";
-import { Button, TableHeader, TableItem } from "../../components";
+import { Button, TableHeader } from "../../components";
 import { useApi } from "../../hooks/useApi";
-import { useItems } from "../../hooks";
+import { IItems } from "../../interfaces";
+import { TableRowsRead } from "../../components";
+import { TableRowsEdit } from "../../components/TableRowsEdit";
 
 export const HomePage = () => {
-  const { items, getAll } = useItems();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState<number>();
+  const [items, setItems] = useState<IItems[]>([]);
+  const [editItemId, setEditItemId] = useState<string | null>(null);
   const auth = useContext(AuthContext);
   const api = useApi();
   const userName = auth.user?.name.split(" ");
@@ -16,12 +28,78 @@ export const HomePage = () => {
     auth.signout();
     navigate("/login");
   };
-  const [list, setList] = useState([]);
+  const handleDelete = (id: string) => {
+    if (confirm("Do you wish to delete this item?")) {
+      api.deleteItembyId(id).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setItems((oldItems) => [
+            ...oldItems.filter((oldItem) => oldItem.id !== id),
+          ]);
+        }
+      });
+    }
+  };
+
+  const handleEdit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const { name, description, value } = event.target as typeof event.target & {
+      name: { value: string };
+      description: { value: string };
+      value: { value: number };
+    };
+    if (editItemId) {
+      const addChange = await api.editItemsById(
+        editItemId,
+        name.value,
+        value.value,
+        description.value
+      );
+
+      const newList = [...items];
+      const index = newList.findIndex((item) => item.id === editItemId);
+      newList[index] = {
+        id: editItemId,
+        name: name.value,
+        value: value.value,
+        description: description.value,
+      };
+      setItems(newList);
+      setEditItemId(null);
+    }
+  };
+  const handleAddItem = (event: SyntheticEvent) => {
+    event.preventDefault();
+    if (name && description && value) {
+      const reload = async () => {
+        const response = await api.addNewItem(name, description, value);
+        if (response instanceof Error) {
+          alert("an error occured");
+        } else {
+          const newItems = [...items, response];
+          setItems(newItems);
+        }
+      };
+      reload();
+      setName("");
+      setDescription("");
+      setValue(0);
+    } else {
+      alert("Fill all information first");
+    }
+  };
 
   useEffect(() => {
-    getAll();
-    console.log(items);
-  }, [list]);
+    const fetchData = async () => {
+      const { data } = await api.getAllItem();
+
+      setItems(data);
+      return data;
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="body">
@@ -33,47 +111,87 @@ export const HomePage = () => {
               <strong>{userName?.slice(0, 1)}</strong>
             </h1>
           </div>
-          <button className="logout-link" onClick={handleLogout}>
+          <Button className="logout-link " onClick={handleLogout}>
             Logout
-          </button>
+          </Button>
         </nav>
       </header>
       <section className="main-view">
         <div className="sideBar"></div>
         <div className="session-main">
           <div className="table-container">
-            <table className="items-table">
-              <thead className="table-header">
-                <tr>
-                  <TableHeader className="table-rows">Name</TableHeader>
-                  <TableHeader className="table-rows">Description</TableHeader>
-                  <TableHeader className="table-rows">Value</TableHeader>
-                  <TableHeader className="table-rows">Edit</TableHeader>
-                  <TableHeader className="table-rows">Delete</TableHeader>
-                </tr>
-              </thead>
-              <tbody className="table-bodie">
-                <tr>
-                  <TableItem className="table-items">Nome do Item</TableItem>
-                  <TableItem className="table-items">
-                    Descrição sei lá oque
-                  </TableItem>
-                  <TableItem className="table-items">
-                    Preço dessa bagaça
-                  </TableItem>
-                  <TableItem className="table-items">
-                    <Button classname="delete-btn" onClick={() => {}}>
-                      Edit
-                    </Button>
-                  </TableItem>
-                  <TableItem className="table-items">
-                    <Button classname="delete-btn" onClick={() => {}}>
-                      Delete
-                    </Button>
-                  </TableItem>
-                </tr>
-              </tbody>
-            </table>
+            <form className="table-form" onSubmit={handleEdit}>
+              <table className="items-table">
+                <thead className="table-header">
+                  <tr>
+                    <TableHeader className="table-rows">Name</TableHeader>
+                    <TableHeader className="table-rows">
+                      Description
+                    </TableHeader>
+                    <TableHeader className="table-rows">Value</TableHeader>
+                    <TableHeader className="table-rows">Edit</TableHeader>
+                    <TableHeader className="table-rows">Delete</TableHeader>
+                  </tr>
+                </thead>
+                <tbody className="table-bodie">
+                  {items.map((items) => (
+                    <>
+                      {editItemId === items.id ? (
+                        <TableRowsEdit
+                          id={items.id}
+                          name={items.name}
+                          description={items.description}
+                          value={items.value}
+                          onClickCancel={() => setEditItemId(null)}
+                        />
+                      ) : (
+                        <TableRowsRead
+                          id={items.id}
+                          description={items.description}
+                          value={items.value}
+                          name={items.name}
+                          onClickEdit={() => setEditItemId(items.id)}
+                          onClickDelete={() => handleDelete(items.id)}
+                        />
+                      )}
+                    </>
+                  ))}
+                </tbody>
+              </table>
+            </form>
+
+            <div className="new-items">
+              <h2>Add New Item</h2>
+              <form className="form-class" onSubmit={handleAddItem}>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  required={true}
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  name="description"
+                  value={description}
+                  required={true}
+                  placeholder="Description"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <input
+                  type="text"
+                  name="value"
+                  required={true}
+                  placeholder="Value"
+                  value={value}
+                  onChange={(e) => setValue(parseInt(e.target.value))}
+                />
+                <Button className="new-btn" type="submit">
+                  + New Item
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </section>

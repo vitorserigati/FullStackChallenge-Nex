@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       if (storageToken && storageUser) {
         const user = JSON.parse(storageUser);
         setUser(user);
+        api.changeHeaders(`Bearer ${storageToken}`);
       }
     };
     searchLocalData();

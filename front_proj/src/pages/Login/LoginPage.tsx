@@ -19,7 +19,7 @@ export const LoginPage = () => {
         alert("Did not Connected");
       }
     } else {
-      return alert("something go whrong");
+      return alert("Error");
     }
   };
 
@@ -34,6 +34,7 @@ export const LoginPage = () => {
             <input
               className={email !== "" ? "has-val input-input" : "input-input"}
               type="email"
+              required={true}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -46,6 +47,7 @@ export const LoginPage = () => {
                 password !== "" ? "has-val input-input" : "input-input"
               }
               type="password"
+              required={true}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

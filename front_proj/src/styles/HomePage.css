@@ -35,6 +35,90 @@
     
     
 }
+.new-items{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding:20px;
+}
+.save-btn{
+    width: 8rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    height: 1.5rem;
+    background-color: #c7aa5b;
+    font-weight: bold;
+    color: #111;
+}
+.new-btn{
+    width: 8rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    height: 2rem;
+    background-color: #c7aa5b;
+    font-weight: bold;
+    color: #111;
+}
+.new-btn:hover{
+    cursor:pointer;
+}
+.form-class{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px;
+    
+    
+}
+.edit-btn{
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    width: 5rem;
+    height: 100%;
+    background-color: black;
+    font-weight: bold;
+    color: #c7aa5b;
+}
+.edit-btn:hover{
+    cursor: pointer;
+}
+.table-form{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    padding-right: 50px;
+}
+.table-form input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #111;
+    padding-left: 1rem;
+    width: 100%;
+}
+.table-form input:focus{
+    border-bottom: 2px solid #111; 
+}
+.form-class input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #111;
+    padding-left: 1rem;
+    width: 20rem;
+
+}
+ input:focus{
+    outline: none;
+    
+
+}
 
 .name{
     width: 100%;
@@ -121,8 +205,8 @@ tbody td button:hover{
     background: transparent;
     border: none;
     border-radius: 10px;
-    width: 100%;
-    height: 100%;
+    width: 7rem;
+    height: 1.5rem;
     background-color: black;
     font-weight: bold;
     color: #c7aa5b;
@@ -130,6 +214,7 @@ tbody td button:hover{
     
 
 }
+
 tbody td{
     padding: 0.5rem 0.8rem;
     margin: 3px;

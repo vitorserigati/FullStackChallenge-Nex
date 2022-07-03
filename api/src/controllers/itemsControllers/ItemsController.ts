@@ -5,6 +5,7 @@ import { ItemModel } from "../../database/models/ItemsModels";
 class ItemController {
   async findAll(req: Request, res: Response) {
     const items = await ItemModel.findAll();
+    items.sort;
     console.log(req, res, items);
 
     return items.length > 0
@@ -25,13 +26,19 @@ class ItemController {
   async create(req: Request, res: Response) {
     const { name, description, value } = req.body;
     const id = uuidv4();
-    const item = await ItemModel.create({
-      id,
-      name,
-      description,
-      value,
-    });
-    return res.status(201).json(item);
+    try {
+      const item = await ItemModel.create({
+        id,
+        name,
+        description,
+        value,
+      });
+      return res.status(201).json(item);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "an error occured, working on it!" });
+    }
   }
 
   async update(req: Request, res: Response) {
@@ -43,7 +50,7 @@ class ItemController {
         { where: { id } }
       );
 
-      return res.status(204).send();
+      return res.status(200);
     } catch (error) {
       return res.status(400).json({ message: "an error has occured" });
     }
