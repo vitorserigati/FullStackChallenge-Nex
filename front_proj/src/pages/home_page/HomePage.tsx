@@ -13,6 +13,7 @@ import { useApi } from "../../hooks/useApi";
 import { IItems } from "../../interfaces";
 import { TableRowsRead } from "../../components";
 import { TableRowsEdit } from "../../components/TableRowsEdit";
+import Swal from "sweetalert2";
 
 export const HomePage = () => {
   const [name, setName] = useState("");
@@ -28,18 +29,30 @@ export const HomePage = () => {
     auth.signout();
     navigate("/login");
   };
+
   const handleDelete = (id: string) => {
-    if (confirm("Do you wish to delete this item?")) {
-      api.deleteItembyId(id).then((result) => {
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          setItems((oldItems) => [
-            ...oldItems.filter((oldItem) => oldItem.id !== id),
-          ]);
-        }
-      });
-    }
+    Swal.fire({
+      title: "Do you wish to delete this item?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api.deleteItembyId(id).then((result) => {
+          if (result instanceof Error) {
+            Swal.fire("error", result.message, "warning");
+          } else {
+            Swal.fire("Changes Have Been Saved", "", "info");
+            setItems((oldItems) => [
+              ...oldItems.filter((oldItem) => oldItem.id !== id),
+            ]);
+          }
+        });
+        // alert(result.message);
+      } else if (result.isDenied) {
+        Swal.fire("Canceled!", "the Operation Is canceled");
+      }
+    });
   };
 
   const handleEdit = async (event: FormEvent<HTMLFormElement>) => {
@@ -70,6 +83,7 @@ export const HomePage = () => {
       setEditItemId(null);
     }
   };
+
   const handleAddItem = (event: SyntheticEvent) => {
     event.preventDefault();
     if (name && description && value) {
@@ -134,28 +148,29 @@ export const HomePage = () => {
                   </tr>
                 </thead>
                 <tbody className="table-bodie">
-                  {items.map((items) => (
-                    <>
-                      {editItemId === items.id ? (
-                        <TableRowsEdit
-                          id={items.id}
-                          name={items.name}
-                          description={items.description}
-                          value={items.value}
-                          onClickCancel={() => setEditItemId(null)}
-                        />
-                      ) : (
-                        <TableRowsRead
-                          id={items.id}
-                          description={items.description}
-                          value={items.value}
-                          name={items.name}
-                          onClickEdit={() => setEditItemId(items.id)}
-                          onClickDelete={() => handleDelete(items.id)}
-                        />
-                      )}
-                    </>
-                  ))}
+                  {Array.isArray(items) &&
+                    items.map((items) => (
+                      <>
+                        {editItemId === items.id ? (
+                          <TableRowsEdit
+                            id={items.id}
+                            name={items.name}
+                            description={items.description}
+                            value={items.value}
+                            onClickCancel={() => setEditItemId(null)}
+                          />
+                        ) : (
+                          <TableRowsRead
+                            id={items.id}
+                            description={items.description}
+                            value={items.value}
+                            name={items.name}
+                            onClickEdit={() => setEditItemId(items.id)}
+                            onClickDelete={() => handleDelete(items.id)}
+                          />
+                        )}
+                      </>
+                    ))}
                 </tbody>
               </table>
             </form>
