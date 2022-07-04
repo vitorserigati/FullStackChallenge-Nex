@@ -20,56 +20,72 @@ export const CreateAccount = () => {
   };
 
   return (
-    <main className="main-class">
-      <section className="section-class">
-        <form className="form-class" onSubmit={handleSubmit}>
-          <div className="register-text">Register</div>
-          <div className="wraper">
+    <main className="register-main-class">
+      <section className="register-section-class">
+        <form className="register-form-class" onSubmit={handleSubmit}>
+          <div className="register-register-text">Register</div>
+          <div className="register-wraper">
             <input
               type="text"
               required={true}
-              className={name !== "" ? "inputs has-val" : "inputs"}
+              className={
+                name !== "" ? "register-inputs has-val" : "register-inputs"
+              }
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <span className="focus-input" data-placeholder="Name" />
+            <span className="register-focus-input" data-placeholder="Name" />
           </div>
-          <div className="wraper">
+          <div className="register-wraper">
             <input
               type="email"
               required={true}
-              className={email !== "" ? "inputs has-val" : "inputs"}
+              className={
+                email !== "" ? "register-inputs has-val" : "register-inputs"
+              }
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <span className="focus-input" data-placeholder="E-mail" />
+            <span className="register-focus-input" data-placeholder="E-mail" />
           </div>
-          <div className="wraper">
+          <div className="register-wraper">
             <input
               type="password"
               required={true}
-              className={password !== "" ? "inputs has-val" : "inputs"}
+              className={
+                password !== "" ? "register-inputs has-val" : "register-inputs"
+              }
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span className="focus-input" data-placeholder="Password" />
+            <span
+              className="register-focus-input"
+              data-placeholder="Password"
+            />
           </div>
-          <div className="wraper">
+          <div className="register-wraper">
             <input
-              type="password"
+              type="register-password"
               required={true}
-              className={confirmPass !== "" ? "inputs has-val" : "inputs"}
+              className={
+                confirmPass !== ""
+                  ? "register-inputs has-val"
+                  : "register-inputs"
+              }
               value={confirmPass}
               onChange={(e) => setConfirmPass(e.target.value)}
             />
-            <span className="focus-input" data-placeholder="Confirm Password" />
+            <span
+              className="register-focus-input"
+              data-placeholder="Confirm Password"
+            />
           </div>
-          <span className="warning">
+          <span className="register-warning">
             Please, make sure all fields are filled in and the information is
             correct
           </span>
-          <div className="btn-wrapper">
-            <Link to={"/login"} className="back-btn">
+          <div className="register-btn-wrapper">
+            <Link to={"/login"} className="register-back-btn">
               Return
             </Link>
             {password === confirmPass &&
@@ -77,7 +93,7 @@ export const CreateAccount = () => {
               confirmPass &&
               name &&
               email !== "" && (
-                <button type="submit" className="form-submit-btn">
+                <button type="submit" className="register-form-submit-btn">
                   Confirm
                 </button>
               )}

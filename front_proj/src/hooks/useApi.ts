@@ -45,7 +45,11 @@ export const useApi = () => ({
     }
   },
 
-  addNewItem: async (name: string, description: string, value: number) => {
+  addNewItem: async (
+    name: string,
+    description: string,
+    value: Float32Array
+  ) => {
     try {
       const response = await api.post<IItems>(
         import.meta.env.VITE_APP_API_ITEMS,
@@ -67,7 +71,7 @@ export const useApi = () => ({
   editItemsById: async (
     id: string,
     name?: string,
-    value?: number,
+    value?: Float32Array,
     description?: string
   ) => {
     try {

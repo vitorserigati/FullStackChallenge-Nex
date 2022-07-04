@@ -3,7 +3,7 @@ import { TableItem, Button } from "./index";
 interface ITableRowsRead {
   name: string;
   description: string;
-  value: number;
+  value: Float32Array;
   id: string;
   onClickEdit: () => void;
   onClickDelete: () => void;

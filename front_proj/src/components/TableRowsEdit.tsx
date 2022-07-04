@@ -7,7 +7,7 @@ interface ITableRowsEdit {
   onClickCancel: () => void;
   name: string;
   description: string;
-  value: number;
+  value: Float32Array;
 }
 
 export const TableRowsEdit: React.FC<ITableRowsEdit> = ({
@@ -19,7 +19,7 @@ export const TableRowsEdit: React.FC<ITableRowsEdit> = ({
 }) => {
   const [Name, setName] = useState(name);
   const [Description, setDescription] = useState(description);
-  const [Value, setValue] = useState(value);
+  const [Value, setValue] = useState<Float32Array>(value);
   return (
     <tr key={id}>
       <TableItem className="table-items">
@@ -45,8 +45,8 @@ export const TableRowsEdit: React.FC<ITableRowsEdit> = ({
           type="text"
           required={true}
           id="value"
-          value={Value}
-          onChange={(e) => setValue(parseInt(e.target.value))}
+          value={Value.toString()}
+          onChange={(e) => setValue(e.target.value)}
         />
       </TableItem>
       <TableItem className="table-items">

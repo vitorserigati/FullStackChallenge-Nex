@@ -17,7 +17,7 @@ import { TableRowsEdit } from "../../components/TableRowsEdit";
 export const HomePage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [value, setValue] = useState<number>();
+  const [value, setValue] = useState<Float32Array>();
   const [items, setItems] = useState<IItems[]>([]);
   const [editItemId, setEditItemId] = useState<string | null>(null);
   const auth = useContext(AuthContext);
@@ -48,7 +48,7 @@ export const HomePage = () => {
     const { name, description, value } = event.target as typeof event.target & {
       name: { value: string };
       description: { value: string };
-      value: { value: number };
+      value: { value: Float32Array };
     };
     if (editItemId) {
       const addChange = await api.editItemsById(
@@ -180,12 +180,13 @@ export const HomePage = () => {
                   onChange={(e) => setDescription(e.target.value)}
                 />
                 <input
-                  type="text"
+                  type="number"
                   name="value"
+                  step="0.01"
                   required={true}
                   placeholder="Value"
-                  value={value}
-                  onChange={(e) => setValue(parseInt(e.target.value))}
+                  value={value?.toString()}
+                  onChange={(e) => setValue(e.target.value)}
                 />
                 <Button className="new-btn" type="submit">
                   + New Item
