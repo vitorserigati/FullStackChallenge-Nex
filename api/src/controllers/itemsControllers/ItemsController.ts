@@ -4,8 +4,10 @@ import { ItemModel } from "../../database/models/ItemsModels";
 
 class ItemController {
   async findAll(req: Request, res: Response) {
-    const items = await ItemModel.findAll();
-    items.sort;
+    const items = await ItemModel.findAll({
+      order: [["name", "ASC"]],
+    });
+
     console.log(req, res, items);
 
     return items.length > 0
@@ -50,7 +52,7 @@ class ItemController {
         { where: { id } }
       );
 
-      return res.status(200);
+      return res.status(200).send();
     } catch (error) {
       return res.status(400).json({ message: "an error has occured" });
     }

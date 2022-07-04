@@ -10,6 +10,7 @@
 # Variáveis Ambiente front-end:
 
     - import.meta.env.VITE_APP_API_URL (usada como url base para conexão com a api utilizando o axios)
+    - import.meta.env.VITE_APP_API_ITEMS=/users/session/items (seta o path para o retorno de todos os itens)
 
 # Variáveis Ambiente back-end:
 

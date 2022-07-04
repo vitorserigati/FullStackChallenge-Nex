@@ -39,16 +39,20 @@ class UsersController {
 
   async create(req: Request, res: Response) {
     const { name, email, password } = req.body;
-    const password_hash = await bcrypt.hash(password, 8);
-    const id = uuidv4();
-    const user = await UserModel.create({
-      id,
-      name: name,
-      email: email,
-      password_hash: password_hash,
-    });
+    try {
+      const password_hash = await bcrypt.hash(password, 8);
+      const id = uuidv4();
+      const user = await UserModel.create({
+        id,
+        name: name,
+        email: email,
+        password_hash: password_hash,
+      });
 
-    return res.status(201).json(user);
+      return res.status(201).json(user);
+    } catch (error) {
+      return res.status(400).json({ message: "Bad Request" });
+    }
   }
   async findall(req: Request, res: Response) {
     const user = await UserModel.findAll();
